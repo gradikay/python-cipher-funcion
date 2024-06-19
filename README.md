@@ -1,1 +1,1 @@
-A python program that cyphers a hidden message from a file.
+# A Python program that ciphers a hidden message from a file
