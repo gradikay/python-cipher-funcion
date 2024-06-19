@@ -1,5 +1,11 @@
+# This Python Program decyphers a hidden message 
+# from a text.
+# @author Gradi Kayamba
+# @version 06/19/2024
+
 # This function creates a pyramid
-# return true if the array is a pyramid
+# @value array the array to create a pyramid
+# return an array if it's a pyramid othewise False and exits
 def create_pyramid(array):
   step = 1
   subsets = []
@@ -15,7 +21,7 @@ def create_pyramid(array):
 # This function finds the number at the end
 # of the pyramid line
 # returns an array
-def endPyramidLine(array):
+def getLastNumbers(array):
   subsets = []
   for x in array:
     subsets.append(x[-1])
@@ -33,7 +39,7 @@ def decypher(array1, array):
 # This function takes a file and breaks
 # it to array of numbers and string based
 # on each line
-def decode_message(message_file):  
+def unpackMessage(message_file):  
   file = open(message_file, "r")
   lines = file.readlines()
   subsets = []
@@ -45,9 +51,18 @@ def decode_message(message_file):
   for i in subsets:
     newSub.append(int(i[0])) # return the numbers
     newSub.sort() # sort the numbers
-  return [newSub,subsets]
-
-myFile = decode_message("file.txt")
-number = create_staircase(myFile[0])
-endNumbers = takeEndingNumber(number)
-message = u(endNumbers, myFile[1])
+    
+  result = create_pyramid(newSub) 
+  return [result, subsets]
+  
+def decode_message(file):
+  unpackedMessage = unpackMessage(file)
+  if(unpackedMessage[0] == False):
+    return "Not a pyramid"
+    
+  lastPyramidNumbersArray = getLastNumbers(unpackedMessage)
+  message = decypher(lastPyramidNumbersArray, unpackedMessage[1])
+  
+  return message
+    
+print(decode_message("file.txt"))    
