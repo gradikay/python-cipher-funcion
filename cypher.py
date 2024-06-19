@@ -1,4 +1,4 @@
-# This Python Program decyphers a hidden message 
+# This Python Program deciphers a hidden message 
 # from a text.
 # @author Gradi Kayamba
 # @version 06/19/2024
@@ -29,13 +29,13 @@ def getLastNumbers(array):
   return result
   
   
-# This function decyphers the message. 
+# This function deciphers the message. 
 # @value endPyramidArray (array): the array containing the last 
 # numbers of the pyramid.
 # @value fullArray (array): the full array containing the last 
 # numbers and strings of the pyramid.
-# @return (str): the decyphered message as a string.
-def decypher(array1, array):
+# @return (str): the deciphered message as a string.
+def decipher(array1, array):
   result = ""    
   for y in array1:
       for x in array:
@@ -73,7 +73,7 @@ def decode_message(file):
     return "Not a pyramid"
     
   lastPyramidNumbersArray = getLastNumbers(unpackedMessage[0])
-  message = decypher(lastPyramidNumbersArray, unpackedMessage[1])
+  message = decipher(lastPyramidNumbersArray, unpackedMessage[1])
   
   return message
     
