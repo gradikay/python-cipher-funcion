@@ -3,64 +3,76 @@
 # @author Gradi Kayamba
 # @version 06/19/2024
 
-# This function creates a pyramid
-# @value array the array to create a pyramid
-# return an array if it's a pyramid othewise False and exits
+# This function creates a pyramid.
+# @value array (array): the array to create a pyramid.
+# @return (bool or array): an array of last numbers if it's a pyramid othewise False and exits.
 def create_pyramid(array):
   step = 1
-  subsets = []
+  result = []
   while len(array) != 0:
     if len(array) >= step:
-      subsets.append(array[0:step])
+      result.append(array[0:step])
       array = array[step:]
       step += 1
     else:
       return False    
-  return subsets
+  return result
   
 # This function finds the number at the end
-# of the pyramid line
-# returns an array
+# of the pyramid line.
+# @value fullArray (array): the full array containing the last numbers and strings of the pyramid.
+# @return (array): an array containing the last numbers of the pyramid.
 def getLastNumbers(array):
-  subsets = []
+  result = []
   for x in array:
-    subsets.append(x[-1])
-  return subsets
+    result.append(x[-1])
+  return result
   
-# This function decyphers the message 
+  
+# This function decyphers the message. 
+# @value endPyramidArray (array): the array containing the last 
+# numbers of the pyramid.
+# @value fullArray (array): the full array containing the last 
+# numbers and strings of the pyramid.
+# @return (str): the decyphered message as a string.
 def decypher(array1, array):
-  subsets = ""    
+  result = ""    
   for y in array1:
       for x in array:
         if(int(x[0]) == y):
-          subsets += x[1]+  " "
+          result += x[1]+  " "
             
-  return subsets
-# This function takes a file and breaks
-# it to array of numbers and string based
-# on each line
+  return result
+  
+# This function takes a file and breaks it down to a 2 dimensional
+# array of numbers and strings per array.
+# @value message_file (file): the file containing the secret message.
+# @return (str or bool): the secret message if its a pyramid, otherwise False.
 def unpackMessage(message_file):  
   file = open(message_file, "r")
   lines = file.readlines()
-  subsets = []
-  newSub = []
+  fullArray = []
+  numbersOnlyArray = []
   for line in lines:
-    good = line.strip()
-    yes = good.split()
-    subsets.append(yes) # return ["string", "string"]
-  for i in subsets:
-    newSub.append(int(i[0])) # return the numbers
-    newSub.sort() # sort the numbers
+    newLine = line.strip()
+    splitLines = newLine.split()
+    fullArray.append(splitLines) # return ["string", "string"]
+  for i in fullArray:
+    numbersOnlyArray.append(int(i[0])) # return the numbers
+    numbersOnlyArray.sort() # sort the numbers
     
-  result = create_pyramid(newSub) 
-  return [result, subsets]
+  result = create_pyramid(numbersOnlyArray) 
+  return [result, fullArray]
   
+# This function checks if the file has a hidden message 
+# @value message_file (file): the file containing the secret message.
+# @return (str): the secret message.  
 def decode_message(file):
   unpackedMessage = unpackMessage(file)
   if(unpackedMessage[0] == False):
     return "Not a pyramid"
     
-  lastPyramidNumbersArray = getLastNumbers(unpackedMessage)
+  lastPyramidNumbersArray = getLastNumbers(unpackedMessage[0])
   message = decypher(lastPyramidNumbersArray, unpackedMessage[1])
   
   return message
