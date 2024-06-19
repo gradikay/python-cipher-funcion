@@ -1,29 +1,38 @@
-# goood
-def create_staircase(nums):
+# This function creates a pyramid
+# return true if the array is a pyramid
+def create_pyramid(array):
   step = 1
   subsets = []
-  while len(nums) != 0:
-    if len(nums) >= step:
-      subsets.append(nums[0:step])
-      nums = nums[step:]
+  while len(array) != 0:
+    if len(array) >= step:
+      subsets.append(array[0:step])
+      array = array[step:]
       step += 1
     else:
-      return False
-      
+      return False    
   return subsets
   
-def takeEndingNumber(create_staircase):
+# This function finds the number at the end
+# of the pyramid line
+# returns an array
+def endPyramidLine(array):
   subsets = []
-  for x in create_staircase:
+  for x in array:
     subsets.append(x[-1])
   return subsets
   
-def u(realNumber, array):
-  subsets = ""
-  for x in realNumber:
-    subsets = subsets + array[x - 1] + " "
+# This function decyphers the message 
+def decypher(array1, array):
+  subsets = ""    
+  for y in array1:
+      for x in array:
+        if(int(x[0]) == y):
+          subsets += x[1]+  " "
+            
   return subsets
-
+# This function takes a file and breaks
+# it to array of numbers and string based
+# on each line
 def decode_message(message_file):  
   file = open(message_file, "r")
   lines = file.readlines()
@@ -38,17 +47,7 @@ def decode_message(message_file):
     newSub.sort() # sort the numbers
   return [newSub,subsets]
 
-#def findWord(array, array2):
-#  for x in array:
-#     array2[]  
-
 myFile = decode_message("file.txt")
 number = create_staircase(myFile[0])
 endNumbers = takeEndingNumber(number)
 message = u(endNumbers, myFile[1])
-thi = [[2,"me"],[1,"you"]]
-#print(myFile)
-#print(number)  
-print(endNumbers)
-#print(thi[0][1])
-
